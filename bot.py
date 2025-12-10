@@ -18,11 +18,6 @@ import re
 # Эта строка читает порт, который дает Render
 PORT = int(os.environ.get('PORT', 10000))
 
-# Замените весь код запуска внизу файла на этот:
-if __name__ == "__main__":
-    # Убедитесь, что в вашем коде есть: app = Flask(__name__)
-    app.run(host='0.0.0.0', port=PORT, debug=False)
-
 # ========== КОНФИГУРАЦИЯ ИЗ ПЕРЕМЕННЫХ ОКРУЖЕНИЯ ==========
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
 ADMIN_PASSWORD_HASH = os.environ.get("ADMIN_PASSWORD_HASH", "")
@@ -1246,3 +1241,6 @@ def show_stats(user_id, message_id=None):
     else:
 
         send_message(user_id, text, [[{"text": "🔙 Назад", "callback_data": "back_to_main"}]])
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=PORT, debug=False
