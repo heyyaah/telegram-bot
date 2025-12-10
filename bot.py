@@ -42,6 +42,12 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
+
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    # ваш код обработки
+    return 'ok', 200
+    
 app.secret_key = SECRET_KEY
 
 # ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ==========
@@ -1238,4 +1244,5 @@ def show_stats(user_id, message_id=None):
     if message_id:
         edit_message(user_id, message_id, text, [[{"text": "🔙 Назад", "callback_data": "back_to_main"}]])
     else:
+
         send_message(user_id, text, [[{"text": "🔙 Назад", "callback_data": "back_to_main"}]])
