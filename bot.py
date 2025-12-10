@@ -1243,7 +1243,41 @@ def show_stats(user_id, message_id=None):
 
         send_message(user_id, text, [[{"text": "🔙 Назад", "callback_data": "back_to_main"}]])
 
+# ========== ЗАПУСК В РЕЖИМЕ POLLING ==========
+def run_polling_bot():
+    logger.info("🤖 Бот запущен в режиме polling...")
+    last_update_id = 0
+    
+    while True:
+        try:
+            # Получаем обновления от Telegram
+            data = safe_request(
+                f"https://api.telegram.org/bot{BOT_TOKEN}/getUpdates",
+                {"offset": last_update_id + 1, "timeout": 30, "limit": 10},
+                "POST",
+                timeout=35
+            )
+            
+            if data and data.get("ok"):
+                updates = data["result"]
+                
+                if updates:
+                    logger.info(f"📨 Получено обновлений: {len(updates)}")
+                
+                for update in updates:
+                    last_update_id = update["update_id"]
+                    process_update(update)
+                
+                time.sleep(0.5)
+            else:
+                time.sleep(2)
+                
+        except Exception as e:
+            logger.error(f"💥 Ошибка в polling цикле: {e}")
+            time.sleep(5)
+
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=PORT, debug=False)
+    run_polling_bot()
+
 
 
