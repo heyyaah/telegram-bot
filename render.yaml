@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: telegram-status-bot
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn bot:app
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: ADMIN_PASSWORD_HASH
+        value: "5f4dcc3b5aa765d61d8327deb882cf99e1a4dc0647a7bd4b5c6eb6c8e77b0984e"
+      - key: ADMIN_USER_ID
+        value: "8081350794"
+      - key: SECRET_KEY
+        generateValue: true
