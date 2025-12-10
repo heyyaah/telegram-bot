@@ -39,9 +39,10 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 
 @app.route('/webhook', methods=['POST'])
-def webhook():
-    # ваш код обработки
-    return 'ok', 200
+
+@app.route('/')
+def home():
+    return "🤖 Бот управления статусами работает!", 200
     
 app.secret_key = SECRET_KEY
 
@@ -1244,4 +1245,5 @@ def show_stats(user_id, message_id=None):
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=PORT, debug=False)
+
 
