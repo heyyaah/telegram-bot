@@ -1243,4 +1243,5 @@ def show_stats(user_id, message_id=None):
         send_message(user_id, text, [[{"text": "🔙 Назад", "callback_data": "back_to_main"}]])
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=PORT, debug=False
+    app.run(host='0.0.0.0', port=PORT, debug=False)
+
